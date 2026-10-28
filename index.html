@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Consulta tus direcciones IP públicas IPv4 e IPv6, detalles de conexión e historial local en un solo panel.">
+  <meta name="referrer" content="no-referrer">
+  <title>Mis direcciones IP | Panel de red</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="background-orb orb-one" aria-hidden="true"></div>
+  <div class="background-orb orb-two" aria-hidden="true"></div>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="#inicio" class="brand" aria-label="Mis direcciones IP, inicio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="18" r="12"/><path d="M6 18h24M18 6c-4 4-6 8-6 12s2 8 6 12M18 6c4 4 6 8 6 12s-2 8-6 12"/></svg>
+        </span>
+        <span>mis<span class="brand-accent">IP</span><small>Panel de red</small></span>
+      </a>
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a href="#inicio" class="active">Panel</a>
+        <a href="#detalles">Detalles</a>
+        <a href="#historial">Historial</a>
+      </nav>
+      <span class="header-state" id="header-state"><span class="status-dot"></span><span id="online-text">Comprobando...</span></span>
+    </div>
+  </header>
+
+  <main class="container" id="inicio">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-main">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> HERRAMIENTA DE DIAGNÓSTICO DE RED</div>
+        <h1 id="page-title">Tu conexión, <span>más clara.</span></h1>
+        <p class="hero-description">Conoce tus direcciones IP públicas y consulta los datos de tu conexión desde un solo lugar. Sin registro y sin instalar nada.</p>
+        <div class="hero-actions">
+          <button class="primary-button" id="refresh-button" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.2-5L3 9m0-6v6h6M4 13a8 8 0 0 0 14.2 5L21 15m0 6v-6h-6"/></svg>
+            <span id="refresh-label">Actualizar información</span>
+          </button>
+          <span class="last-check" id="last-check" aria-live="polite">Buscando información...</span>
+        </div>
+      </div>
+      <div class="hero-graphic" aria-hidden="true">
+        <div class="globe-scene">
+          <div class="globe-ring ring-a"></div><div class="globe-ring ring-b"></div>
+          <svg class="globe-svg" viewBox="0 0 220 220" fill="none" stroke="currentColor" stroke-width="1"><circle cx="110" cy="110" r="83"/><ellipse cx="110" cy="110" rx="39" ry="83"/><ellipse cx="110" cy="110" rx="65" ry="83"/><path d="M27 110h166M38 70h144M38 150h144M69 40q40 42 82 0M69 180q40-42 82 0"/></svg>
+          <span class="globe-point point-a"></span><span class="globe-point point-b"></span><span class="globe-point point-c"></span>
+        </div>
+        <div class="graphic-label">RED GLOBAL <span>·</span> CONEXIÓN ACTIVA</div>
+      </div>
+    </section>
+
+    <section aria-labelledby="ip-section-title" class="ip-section">
+      <div class="section-header"><div><p class="section-kicker">INFORMACIÓN PRINCIPAL</p><h2 id="ip-section-title">Mis direcciones IP</h2></div><span class="secure-indicator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> Consulta desde tu navegador</span></div>
+      <div class="ip-grid">
+        <article class="ip-card ipv4-card">
+          <div class="card-top"><div class="ip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></div><span class="type-pill">IPv4</span></div>
+          <p class="ip-label">Tu dirección IPv4 pública</p>
+          <p class="ip-number" id="ipv4-value" aria-live="polite">Consultando...</p>
+          <div class="ip-card-footer"><span class="ip-note" id="ipv4-status">Detectando tu dirección</span><button class="copy-button" id="copy-ipv4" disabled type="button" aria-label="Copiar dirección IPv4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copiar</span></button></div>
+        </article>
+        <article class="ip-card ipv6-card">
+          <div class="card-top"><div class="ip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 2l8.7 5v10L12 22l-8.7-5V7L12 2Z"/><path d="m3.3 7 8.7 5 8.7-5M12 12v10"/></svg></div><span class="type-pill">IPv6</span></div>
+          <p class="ip-label">Tu dirección IPv6 pública</p>
+          <p class="ip-number ipv6-number" id="ipv6-value" aria-live="polite">Consultando...</p>
+          <div class="ip-card-footer"><span class="ip-note" id="ipv6-status">Comprobando compatibilidad</span><button class="copy-button" id="copy-ipv6" disabled type="button" aria-label="Copiar dirección IPv6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Copiar</span></button></div>
+        </article>
+      </div>
+      <p class="notice" id="lookup-notice" role="status">La IP pública puede cambiar si te conectas a otra red, utilizas datos móviles o activas una VPN.</p>
+    </section>
+
+    <section class="details-grid" id="detalles" aria-labelledby="details-title">
+      <article class="panel">
+        <div class="panel-heading"><div class="panel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 19h16M5 19V7l7-4 7 4v12M9 10h.01M15 10h.01M9 14h.01M15 14h.01" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><p class="section-kicker">RED PÚBLICA</p><h2 id="details-title">Detalles de conexión</h2></div></div>
+        <dl class="details-list">
+          <div><dt>Proveedor de internet (ISP)</dt><dd id="isp-value">—</dd></div>
+          <div><dt>Organización / ASN</dt><dd id="asn-value">—</dd></div>
+          <div><dt>País</dt><dd id="country-value">—</dd></div>
+          <div><dt>Ciudad / Región</dt><dd id="region-value">—</dd></div>
+          <div><dt>Zona horaria de la IP</dt><dd id="timezone-value">—</dd></div>
+        </dl>
+        <p class="panel-footnote">La ubicación corresponde a una estimación de la red, no a tu ubicación GPS.</p>
+      </article>
+      <article class="panel">
+        <div class="panel-heading"><div class="panel-icon violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4" stroke-linecap="round"/></svg></div><div><p class="section-kicker">TU DISPOSITIVO</p><h2>Información del navegador</h2></div></div>
+        <dl class="details-list">
+          <div><dt>Estado de conexión</dt><dd id="connection-value">—</dd></div>
+          <div><dt>Navegador</dt><dd id="browser-value">—</dd></div>
+          <div><dt>Sistema operativo</dt><dd id="os-value">—</dd></div>
+          <div><dt>Idioma</dt><dd id="language-value">—</dd></div>
+          <div><dt>Zona horaria del dispositivo</dt><dd id="device-timezone-value">—</dd></div>
+        </dl>
+        <p class="panel-footnote">Por motivos de privacidad, los navegadores modernos no suelen revelar tu IP local.</p>
+      </article>
+    </section>
+
+    <section class="history-panel panel" id="historial" aria-labelledby="history-title">
+      <div class="history-header"><div><p class="section-kicker">REGISTRO LOCAL</p><h2 id="history-title">Historial de consultas</h2><p>Las consultas se conservan únicamente en este navegador.</p></div><div class="history-actions"><label class="toggle-label"><input type="checkbox" id="save-history" checked><span>Guardar historial</span></label><button type="button" id="clear-history" class="text-button">Borrar historial</button></div></div>
+      <div class="history-table-wrap"><table class="history-table"><thead><tr><th>Fecha y hora</th><th>Dirección IPv4</th><th>Dirección IPv6</th></tr></thead><tbody id="history-body"><tr><td colspan="3" class="empty-state">No hay consultas registradas todavía.</td></tr></tbody></table></div>
+    </section>
+
+    <section class="info-banner" aria-label="Privacidad"><div class="info-symbol" aria-hidden="true">i</div><div><strong>Tu privacidad importa.</strong><p>Esta web no requiere cuentas ni servidor propio. Para conocer tu IP pública y sus datos de red, tu navegador consulta servicios externos de IP. El historial, si lo activas, se almacena solo en tu dispositivo.</p></div></section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><span>misIP · Panel de red</span><span>Información de red aproximada · <span id="copyright-year"></span></span></div></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
